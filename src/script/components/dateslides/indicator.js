@@ -37,7 +37,7 @@ export default class Indicator {
         this.line = document.createElement('div');
         this.line.classList.add('indicator-line');
         this.container.appendChild(this.line)
-
+        this.isDown = false;
 
         this.container.addEventListener("scroll", (event) => {
 
@@ -51,13 +51,49 @@ export default class Indicator {
                     this.setActiveSlide(activeSlide)
                 }
 
-            }, 100)
+            }, 20)
             console.log();
         }, { passive: true });
 
 
+
+
+        this.container.addEventListener('mousedown', (e) => {
+            this.isDown = true;
+            this.container.classList.add('active');
+            this.startX = e.pageX - this.container.offsetLeft;
+            this.scrollLeft = this.container.scrollLeft;
+        });
+        this.container.addEventListener('mouseleave', () => {
+            this.isDown = false;
+            this.container.classList.remove('active');
+        });
+        this.container.addEventListener('mouseup', () => {
+            this.isDown = false;
+            this.container.classList.remove('active');
+        });
+        this.container.addEventListener('mousemove', (e) => {
+            if (!this.isDown) return;
+            e.preventDefault();
+            const x = e.pageX - this.container.offsetLeft;
+            const walk = (x - this.startX) * 3; //scroll-fast
+            this.container.scrollLeft = this.scrollLeft - walk;
+            console.log(walk);
+        });
+
+
+
+
+
+
+
         console.log(this.slides)
         let currentMonth = null;
+
+        const markerStatic = document.createElement('div');
+        markerStatic.classList.add('indicator-marker');
+        markerStatic.classList.add('indicator-marker-static');
+        this.outerContainer.appendChild(markerStatic)
 
         this.slides.forEach((slide, index) => {
             const dateArray = slide.date.split('-');

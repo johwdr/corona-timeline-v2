@@ -31,6 +31,9 @@ $indicatorColor: #dedede;
     }
     .indicator {
         cursor: grab;
+        &.active {
+            cursor: grabbing;
+        }
         height: 70px;
         width: 100%;
         margin: 15px auto 0;
@@ -72,6 +75,12 @@ $indicatorColor: #dedede;
         color: $indicatorColor;
         border-color: $indicatorColor;
         border-left: 2px solid;
+        &.indicator-marker-static {
+            position: absolute;
+            border-color: #FF001E;
+            top: 20px;
+            height: 40px;
+        }
         &.indicator-marker-spacer {
             width: 400px;
             border: none;
@@ -86,9 +95,10 @@ $indicatorColor: #dedede;
         &.indicator-marker-highlight {
             border-color: #aeaeae;
         }
+
         &.indicator-marker-active {
 
-            border-color: #FF001E;
+            //border-color: #FF001E;
 
             .indicator-marker-month-label {
                 display: none
