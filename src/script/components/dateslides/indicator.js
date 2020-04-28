@@ -7,8 +7,14 @@ const markerWidth = 12;
 export default class Indicator {
     constructor(slidesData, callback) {
         this.slides = slidesData.reverse();
+        this.outerContainer = document.createElement('div');
+        this.outerContainer.classList.add('indicator-container');
+
         this.container = document.createElement('div');
         this.container.classList.add('indicator');
+
+        this.outerContainer.appendChild(this.container)
+
         this.markers = [];
         this.callback = callback;
         this.currentActiveSlide = 0;
@@ -22,6 +28,11 @@ export default class Indicator {
 
     build() {
 
+
+        this.label = document.createElement('div');
+        this.label.classList.add('indicator-marker-label');
+
+        this.outerContainer.appendChild(this.label);
 
         this.line = document.createElement('div');
         this.line.classList.add('indicator-line');
@@ -57,16 +68,11 @@ export default class Indicator {
             if (index === this.slides.length-1) {
                 marker.classList.add('indicator-marker-last');
             }
-            const label = document.createElement('div');
-            label.classList.add('indicator-marker-label');
-            label.innerHTML = slide.date;
-            marker.appendChild(label);
+
             if (month != currentMonth) {
                 marker.classList.add('indicator-marker-month');
                 const monthLabel = document.createElement('div');
-                if (currentMonth === null) {
-                    monthLabel.innerHTML = Number(dateArray[0])  + '. ' + this.months[month - 1];
-                } else {
+                if (currentMonth != null) {
 
                     monthLabel.innerHTML = this.months[month-1];
                 }
@@ -84,14 +90,29 @@ export default class Indicator {
 
 
     }
+    moveIndicator(slide) {
+        let currentScroll = this.container.scrollLeft;
+        currentScroll += (slide - this.currentActiveSlide) * markerWidth;
+        this.container.scrollLeft = currentScroll;
+        this.setActiveSlide(slide, false)
 
-    setActiveSlide(slide) {
+    }
+    setActiveSlide(slide, callback = true) {
 
 
         this.markers[this.currentActiveSlide].classList.remove('indicator-marker-active');
         this.currentActiveSlide = slide;
         this.markers[this.currentActiveSlide].classList.add('indicator-marker-active');
-        this.callback(slide)
+
+        const date = this.slides[slide].date;
+
+        const dateArray = date.split('-');
+        const month = this.months[Number(dateArray[1])-1];
+        const day = Number(dateArray[0]);
+        this.label.innerHTML = `${day}. ${month}`;
+        if (callback) {
+            this.callback(slide)
+        }
 
     }
     setCurrentIndex(index) {

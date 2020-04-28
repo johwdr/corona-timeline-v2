@@ -1,6 +1,18 @@
 @import "../../../styles/global.scss";
 
 [data-date-slides] {
+
+    .indicator-container {
+        position: relative;
+    }
+
+    .indicator-marker-label {
+        position: absolute;
+        top: 1px;
+        padding: 2px 5px;
+        background: $background;
+        text-transform: uppercase;
+    }
     .indicator {
         height: 70px;
         width: 100%;
@@ -40,9 +52,7 @@
         &.indicator-marker-active {
 
             border-color: #FF001E;
-            .indicator-marker-label {
-                display: block
-            }
+
             .indicator-marker-month-label {
                 display: none
             }

@@ -105,7 +105,7 @@ export default class DateSlides {
         this.indicator = new Indicator(this.data, (slide) => {
             this.setActiveSlide(slide)
         })
-        this.container.appendChild(this.indicator.container);
+        this.container.appendChild(this.indicator.outerContainer);
 
 
         return new Promise((resolve, reject) => {
@@ -136,6 +136,7 @@ export default class DateSlides {
                 this.firstBack = true;
             }
             this.setActiveSlide(this.currentSlideIndex-1)
+            this.indicator.moveIndicator(this.currentSlideIndex - 1)
         }
     }
     goForward() {
@@ -146,6 +147,7 @@ export default class DateSlides {
                 this.firstForward = true;
             }
             this.setActiveSlide(this.currentSlideIndex+1)
+            this.indicator.moveIndicator(this.currentSlideIndex+1)
         }
     }
     setActiveSlide(newSlideIndex) {
