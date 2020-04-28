@@ -1,0 +1,96 @@
+@import "../../../styles/global.scss";
+
+[data-date-slides] {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
+    background: #f2f2f2;
+    padding: 5px;
+    box-sizing: border-box;
+    color: #FF001E;
+    .arrow-svg {fill:#FF001E;}
+    &.blue {
+        color: #0861ce;
+        .arrow-svg {fill:#0861ce;}
+    }
+    h1 {
+        text-align: center;
+        color: black;
+        margin: 0;
+        padding: 10px;
+        font-family: Publik;
+        font-size: 22px;
+        font-weight: 600;
+    }
+    .date {
+
+        font-size: 48px;
+        font-weight: 400;
+        font-family: Publik;
+        text-align: center;
+        @media (max-width: 320px) {
+            font-size: 26px;
+        }
+    }
+
+    .navigation-inner {
+        max-width: 300px;
+        margin: 0 auto 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: #FF001E;
+        font-family: gibsonRegular;
+        padding: 0;
+        .date {
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            font-family: gibsonSemibold;
+            font-size: 20px;
+        }
+        button {
+            display: flex;
+            color: #fff;
+            background: none;
+            border: none;
+            outline: none;
+            font-size: 22px;
+            font-weight: 100;
+            position: relative;
+            width: 50px;
+            box-sizing: border-box;
+            height: 50px;
+            padding: 0 10px;
+            margin: 0;
+            cursor: pointer;
+            svg {
+                width: 100%;
+                fill: #fff;
+            }
+
+            &.navigation-button-hidden {
+                visibility: hidden;
+            }
+        }
+    }
+
+
+    #dateslide-slide-0 {
+        .back-button {
+             cursor: default;
+            .arrow-svg {
+                fill: #D4D4D4;
+            }
+        }
+    }
+    .dateslide-slide-last {
+        .forward-button {
+            cursor: default;
+            .arrow-svg {
+                fill: #D4D4D4;
+            }
+        }
+    }
+}

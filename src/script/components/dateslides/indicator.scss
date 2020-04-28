@@ -1,0 +1,75 @@
+@import "../../../styles/global.scss";
+
+[data-date-slides] {
+    .indicator {
+        height: 70px;
+        width: 100%;
+        margin: 15px auto 0;
+        //display: flex;
+        overflow-x: scroll;
+         white-space: nowrap;
+        padding-top: 20px;
+        scroll-snap-type: x mandatory;
+    }
+    .indicator-line {
+        height: 3px;
+        //background: #FF001E;
+    }
+    .indicator-marker {
+        scroll-snap-align: start;
+        height: 26px;
+        background: none;
+        position: relative;
+
+        display: inline-block;
+        position: relative;
+        top: -7px;
+        color: #dedede;
+        border-color: #dedede;
+        border-left: 2px solid;
+        &.indicator-marker-month, &.indicator-marker-active {
+            height: 40px;
+            top: 0;
+        }
+        &.indicator-marker-active {
+
+            border-color: #FF001E;
+            .indicator-marker-label {
+                display: block
+            }
+            .indicator-marker-month-label {
+                display: none
+            }
+        }
+        &:hover:after {
+            content: attr(data-date);
+            padding: 4px 8px;
+            color: black;
+            background-color:white;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            z-index:10;
+            border:1px black solid;
+            box-shadow:0 0 3px #ccc;
+        }
+        &.indicator-marker-month {
+            height: 40px;
+            top: 0;
+        }
+        .indicator-marker-label {
+            display: none;
+            color: #FF001E;
+            background: #f2f2f2;
+            z-index: 10;
+        }
+        .indicator-marker-month-label, .indicator-marker-label {
+            position: absolute;
+            top: -20px;
+            text-transform: uppercase;
+        }
+        &.indicator-marker-last {
+            // margin-right: 50vw;
+        }
+    }
+}
