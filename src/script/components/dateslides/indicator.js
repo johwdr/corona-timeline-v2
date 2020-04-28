@@ -125,12 +125,7 @@ export default class Indicator {
                 monthLabel.classList.add('indicator-marker-month-label');
                 marker.appendChild(monthLabel);
             }
-            marker.addEventListener('click', () => {
-                console.log(marker.dataset.index)
-                this.moveIndicator(marker.dataset.index, true);
 
-            })
-            console.log()
             this.container.appendChild(marker)
             this.markers.push(marker)
 

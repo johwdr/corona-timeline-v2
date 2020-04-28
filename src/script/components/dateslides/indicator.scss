@@ -6,6 +6,8 @@ $indicatorColor: #dedede;
 
     .indicator-container {
         position: relative;
+        max-width: 400px;
+        margin: 0 auto;
 
         &:after {
             content: "";
@@ -84,9 +86,7 @@ $indicatorColor: #dedede;
         &.indicator-marker-spacer {
             width: 400px;
             border: none;
-            &:hover:after {
-                content: none;
-            }
+
         }
         &.indicator-marker-month, &.indicator-marker-active {
             height: 40px;
@@ -104,18 +104,7 @@ $indicatorColor: #dedede;
                 display: none
             }
         }
-        &:hover:after {
-            content: attr(data-date);
-            padding: 4px 8px;
-            color: black;
-            background-color:white;
-            position: absolute;
-            left: 0;
-            top: 100%;
-            z-index:10;
-            border:1px black solid;
-            box-shadow:0 0 3px #ccc;
-        }
+
         &.indicator-marker-month {
             height: 40px;
             top: 0;
