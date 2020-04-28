@@ -29,6 +29,7 @@ export default class Slide {
         }
 
         this.container.id = 'dateslide-slide-' + this.index;
+        this.container.dataset.date =  this.data.date;
 
 
         //console.log(this.data)
@@ -112,7 +113,7 @@ export default class Slide {
         this.bottomWrapper.classList.add('bottom-wrapper');
         this.container.appendChild(this.bottomWrapper)
 
-        this.buildNavigation()
+        //this.buildNavigation()
         //this.buildSource();
 
         return this.container;

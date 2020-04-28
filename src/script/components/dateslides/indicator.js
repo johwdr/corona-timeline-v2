@@ -35,7 +35,7 @@ export default class Indicator {
             this.debounce = setTimeout(() => {
                 this.setActiveSlide(activeSlide)
 
-            }, 10)
+            }, 200)
             console.log();
         }, { passive: true });
 

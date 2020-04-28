@@ -97,17 +97,17 @@ export default class DateSlides {
 
     build() {
 
-        this.date = document.createElement('div');
-        this.date.classList.add('date')
-        this.container.appendChild(this.date);
 
+        this.slidesByDate = {};
 
         this.indicator = new Indicator(this.data, (slide) => {
             this.setActiveSlide(slide)
         })
         this.container.appendChild(this.indicator.container);
 
-
+        this.slideContainer = document.createElement('div');
+        this.slideContainer.classList.add('slide-container')
+        this.container.appendChild(this.slideContainer);
         return new Promise((resolve, reject) => {
             this.slides = [];
 
@@ -121,7 +121,8 @@ export default class DateSlides {
                 });
 
                 this.slides.push(slide);
-                this.container.appendChild(slide);
+                this.slidesByDate[slideData.date] = slide;
+                this.slideContainer.appendChild(slide);
             });
 
             resolve();
@@ -153,7 +154,14 @@ export default class DateSlides {
         this.slides[this.currentSlideIndex].classList.remove('dateslides-slide-active')
         this.slides[newSlideIndex].classList.add('dateslides-slide-active')
         this.currentSlideIndex = newSlideIndex;
-        this.date.innerText = this.formatDate(this.data[newSlideIndex].date);
+        if (this.slides.length >= newSlideIndex+1) {
+            this.slides[newSlideIndex+1].classList.add('dateslides-slide-active-next')
+        }
+
+        this.slides[newSlideIndex].scrollIntoView({
+            block: 'nearest', inline: 'start'
+        });
+
         this.indicator.setCurrentIndex(this.currentSlideIndex)
 
     }
