@@ -38,38 +38,31 @@ export default class Slide {
 
         //console.log(this.data.infected)
 
-        if (this.data.infected) {
-            numbers += `
-                <div class="number-element">
-                    <div class="number">${this.data.infected}</div>
-                    <div class="number-label">Smittet</div>
-                </div>
-            `;
-        }
-        if (this.data.hospitalized) {
-            numbers += `
-                <div class="number-element">
-                    <div class="number">${this.data.hospitalized}</div>
-                    <div class="number-label">Indlagt</div>
-                </div>
-            `;
-        }
-        if (this.data.intensivecare) {
-            numbers += `
-                <div class="number-element">
-                    <div class="number">${this.data.intensivecare}</div>
-                    <div class="number-label">På intensiv</div>
-                </div>
-            `;
-        }
-        if (this.data.dead) {
-            numbers += `
-                <div class="number-element">
-                    <div class="number">${this.data.dead}</div>
-                    <div class="number-label">Døde</div>
-                </div>
-            `;
-        }
+
+        numbers += `
+            <div class="number-element">
+                <span class="number-label">Smittet</span>
+                <span class="number">${this.data.infected || 0}</span>
+            </div>
+        `;
+        numbers += `
+            <div class="number-element">
+                <span class="number-label">Indlagt</span>
+                <span class="number">${this.data.hospitalized || 0}</span>
+            </div>
+        `;
+        numbers += `
+            <div class="number-element">
+                <span class="number-label">På intensiv</span>
+                <span class="number">${this.data.intensivecare || 0}</span>
+            </div>
+        `;
+        numbers += `
+            <div class="number-element">
+                <span class="number-label">Døde</span>
+                <span class="number">${this.data.dead || 0}</span>
+            </div>
+        `;
         if (numbers) {
             contentsString += `<div class="numbers">${numbers}</div>`;
         }

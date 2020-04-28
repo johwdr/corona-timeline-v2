@@ -41,12 +41,17 @@ export default class Indicator {
 
         this.container.addEventListener("scroll", (event) => {
 
+            if (this.scrolling) return;
+
             const activeSlide = Math.ceil((event.srcElement.scrollLeft / (markerWidth+2)));
             clearTimeout(this.debounce);
             this.debounce = setTimeout(() => {
-                this.setActiveSlide(activeSlide)
+                if (activeSlide < this.slides.length) {
 
-            }, 10)
+                    this.setActiveSlide(activeSlide)
+                }
+
+            }, 100)
             console.log();
         }, { passive: true });
 
@@ -61,6 +66,10 @@ export default class Indicator {
             marker.classList.add('indicator-marker');
             if (index === this.currentActiveSlide) {
                 marker.classList.add('indicator-marker-active');
+            }
+            console.log(slide, slide.highlight)
+            if (slide.highlight) {
+                marker.classList.add('indicator-marker-highlight');
             }
             marker.style.width = markerWidth + 'px'
             marker.dataset.date = slide.date;
@@ -80,25 +89,66 @@ export default class Indicator {
                 monthLabel.classList.add('indicator-marker-month-label');
                 marker.appendChild(monthLabel);
             }
+            marker.addEventListener('click', () => {
+                console.log(marker.dataset.index)
+                this.moveIndicator(marker.dataset.index, true);
+
+            })
             console.log()
             this.container.appendChild(marker)
             this.markers.push(marker)
 
         })
-
+        const marker = document.createElement('div');
+        marker.classList.add('indicator-marker');
+        marker.classList.add('indicator-marker-spacer');
+        this.container.appendChild(marker)
+        this.setActiveSlide(0, false)
 
 
 
     }
-    moveIndicator(slide) {
+    moveIndicator(slide, callback = false) {
         let currentScroll = this.container.scrollLeft;
         currentScroll += (slide - this.currentActiveSlide) * markerWidth;
-        this.container.scrollLeft = currentScroll;
-        this.setActiveSlide(slide, false)
+        //this.container.scrollLeft = currentScroll;
+        this.scrolling = true;
+        //this.container.classList.add('no-snap')
+        const duration = (Math.abs((slide - this.currentActiveSlide)) * 100) + 100;
+        this.scrollTo(this.container, currentScroll, duration, () => {
+            //this.container.classList.remove('no-snap')
+            this.scrolling = false;
+            this.setActiveSlide(slide, callback)
+        })
+        //this.setActiveSlide(slide, callback)
 
+    }
+    scrollTo(element, to = 0, duration = 1000, scrollToDone = null) {
+        const start = element.scrollLeft;
+        const change = to - start;
+        const increment = 10;
+        let currentTime = 0;
+
+        const animateScroll = (() => {
+
+            currentTime += increment;
+
+            const val = this.easeInOutQuad(currentTime, start, change, duration);
+
+            element.scrollLeft = val;
+
+            if (currentTime < duration) {
+                setTimeout(animateScroll, increment);
+            } else {
+                if (scrollToDone) scrollToDone();
+            }
+        });
+
+        animateScroll();
     }
     setActiveSlide(slide, callback = true) {
 
+        if (this.scrolling) return
 
         this.markers[this.currentActiveSlide].classList.remove('indicator-marker-active');
         this.currentActiveSlide = slide;
@@ -117,5 +167,13 @@ export default class Indicator {
     }
     setCurrentIndex(index) {
     }
+    easeInOutQuad(t, b, c, d) {
 
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+    };
 }
+
+

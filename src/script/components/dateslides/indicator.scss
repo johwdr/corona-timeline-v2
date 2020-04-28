@@ -1,19 +1,36 @@
 @import "../../../styles/global.scss";
 
+$indicatorColor: #dedede;
+
 [data-date-slides] {
 
     .indicator-container {
         position: relative;
+
+        &:after {
+            content: "";
+            position: absolute;
+            display: block;
+            right: 0px;
+            width: 80px;
+            height: 100%;
+            top: 0;
+            background: linear-gradient(to right, rgba(242, 242, 242, 0) 0%, rgba(242, 242, 242, 1) 100%);
+        }
+
+
+
     }
 
     .indicator-marker-label {
         position: absolute;
-        top: 1px;
+        top: -2px;
         padding: 2px 5px;
         background: $background;
         text-transform: uppercase;
     }
     .indicator {
+        cursor: grab;
         height: 70px;
         width: 100%;
         margin: 15px auto 0;
@@ -21,8 +38,13 @@
         overflow-x: scroll;
          white-space: nowrap;
         padding-top: 20px;
+
+
         scroll-snap-type: x mandatory;
 
+        &.no-snap {
+            scroll-snap-type: none;
+        }
         &::-webkit-scrollbar {
             display: none;
         }
@@ -30,7 +52,12 @@
 
     }
     .indicator-line {
-        height: 3px;
+        height: 1px;
+        position: absolute;
+        left: 0;
+        top: 40px;
+        width: 100%;
+        background: $indicatorColor;
         //background: #FF001E;
     }
     .indicator-marker {
@@ -42,12 +69,22 @@
         display: inline-block;
         position: relative;
         top: -7px;
-        color: #dedede;
-        border-color: #dedede;
+        color: $indicatorColor;
+        border-color: $indicatorColor;
         border-left: 2px solid;
+        &.indicator-marker-spacer {
+            width: 400px;
+            border: none;
+            &:hover:after {
+                content: none;
+            }
+        }
         &.indicator-marker-month, &.indicator-marker-active {
             height: 40px;
             top: 0;
+        }
+        &.indicator-marker-highlight {
+            border-color: #aeaeae;
         }
         &.indicator-marker-active {
 

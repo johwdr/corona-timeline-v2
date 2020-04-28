@@ -97,11 +97,6 @@ export default class DateSlides {
 
     build() {
 
-        this.date = document.createElement('div');
-        this.date.classList.add('date')
-        this.container.appendChild(this.date);
-
-
         this.indicator = new Indicator(this.data, (slide) => {
             this.setActiveSlide(slide)
         })
@@ -135,8 +130,8 @@ export default class DateSlides {
                 this.pingvin.ping('first-back');
                 this.firstBack = true;
             }
-            this.setActiveSlide(this.currentSlideIndex-1)
-            this.indicator.moveIndicator(this.currentSlideIndex - 1)
+
+            this.indicator.moveIndicator(this.currentSlideIndex - 1, true)
         }
     }
     goForward() {
@@ -146,16 +141,18 @@ export default class DateSlides {
                 this.pingvin.ping('first-forward');
                 this.firstForward = true;
             }
-            this.setActiveSlide(this.currentSlideIndex+1)
-            this.indicator.moveIndicator(this.currentSlideIndex+1)
+
+            this.indicator.moveIndicator(this.currentSlideIndex+1, true)
         }
     }
     setActiveSlide(newSlideIndex) {
+        console.trace();
         console.log('set active slide')
+        console.log(newSlideIndex)
         this.slides[this.currentSlideIndex].classList.remove('dateslides-slide-active')
         this.slides[newSlideIndex].classList.add('dateslides-slide-active')
         this.currentSlideIndex = newSlideIndex;
-        this.date.innerText = this.formatDate(this.data[newSlideIndex].date);
+
         this.indicator.setCurrentIndex(this.currentSlideIndex)
 
     }

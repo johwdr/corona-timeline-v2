@@ -21,33 +21,38 @@ $padding: 20px;
         .numbers {
             display: flex;
             flex-direction: row;
-            text-align: center;
+            text-align: left;
             justify-content: center;
             margin-bottom: 2px;
+            box-sizing: border-box;
         }
         .number-element {
-            padding: 0 15px 10px;
+            padding: 0 5px 10px;
             font-family: Publik;
+            font-weight: 400;
+            font-size: 12px;
+            width: 25%;
+            @media (max-width: 320px) {
+               font-size: 12px;
+            }
+            text-transform: uppercase;
+            &:first-of-type {
+                padding-left: 0;
+            }
+            &:last-of-type {
+                padding-right: 0;
+            }
         }
         .number {
             color: #333333;
-            line-height: 1;
-            font-weight: 700;
-            font-size: 36px;
-            @media (max-width: 320px) {
-               font-size: 22px;
-            }
+            font-weight: 600;
+
         }
 
 
         .number-label {
             color: #333333;
-            font-weight: 400;
-            font-size: 14px;
-            @media (max-width: 320px) {
-               font-size: 12px;
-            }
-            text-transform: uppercase;
+
         }
         h3 {
             color: #FF001E;
