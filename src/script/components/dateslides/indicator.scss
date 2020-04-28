@@ -10,6 +10,12 @@
          white-space: nowrap;
         padding-top: 20px;
         scroll-snap-type: x mandatory;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        -ms-overflow-style: none;
+
     }
     .indicator-line {
         height: 3px;
