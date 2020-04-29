@@ -16,15 +16,26 @@ export default class DateSlides {
 
         const el = document.querySelector('[data-date-slides]');
 
-        this.header = document.createElement('h1');
+        this.header = document.createElement('div');
+        this.header.id = 'corona-timeline-header';
+
+        this.title = document.createElement('h1');
+        this.header.appendChild(this.title)
+
+
+
 
         el.appendChild(this.header)
-        this.container = el;
+
+        this.container = document.createElement('div');
+        this.container.id = 'corona-timeline-content';
+        el.appendChild(this.container)
+
         this.currentSlideIndex = 0;
         this.dataURL = el.dataset.dateSlides;
 
 
-        const pingvinNamespace = ('drn-corona-timeline');
+        const pingvinNamespace = ('drn-corona-timeline-v2');
 
         const pingvinURL = 'https://pingvin-server.public.prod.gcp.dr.dk'
         this.pingvin = new Pingvin(pingvinNamespace, pingvinURL)
@@ -67,7 +78,7 @@ export default class DateSlides {
                     //console.log(response);
                     this.configData = response.data[0];
 
-                    this.header.innerText = this.configData.header;
+                    this.title.innerHTML = this.configData.header;
                     console.log(this.configData)
 
 
@@ -102,6 +113,11 @@ export default class DateSlides {
         })
         this.container.appendChild(this.indicator.outerContainer);
 
+        this.buildNavigation().then(() => {
+            console.log('hopa')
+            this.header.appendChild(this.navigation)
+
+        })
 
         return new Promise((resolve, reject) => {
             this.slides = [];
@@ -177,6 +193,71 @@ export default class DateSlides {
         } else {
             return date;
         }
+
+    }
+    buildNavigation() {
+
+        return new Promise((resolve, reject) => {
+
+
+            this.navigation = document.createElement('div');
+            this.navigation.classList.add('navigation');
+
+
+
+            this.back = document.createElement('button');
+            this.back.classList.add('back-button');
+            this.back.innerHTML = `
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                    <style type="text/css">
+
+                        .arrow {fill:#FFFFFF;}
+                    </style>
+                    <g>
+
+                        <polygon class="arrow" points="27.95,36.07 30.07,33.95 21.12,25 30.07,16.05 27.95,13.93 16.87,25 	"/>
+                    </g>
+                </svg>`;
+            if (this.currentSlideIndex != 0) {
+                this.back.addEventListener('click', e => {
+                    this.goBack();
+                })
+            }
+
+
+
+
+
+            this.forward = document.createElement('button');
+            this.forward.classList.add('forward-button');
+            this.forward.innerHTML = `
+
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                    <style type="text/css">
+                        .arrow {fill:#FFFFFF;}
+                    </style>
+                    <g>
+                        <polygon class="arrow" points="22.05,36.07 19.93,33.95 28.88,25 19.93,16.05 22.05,13.93 33.13,25 	"/>
+                    </g>
+                </svg>
+                `;
+            if (this.currentSlideIndex != (this.data.length - 1)) {
+                this.forward.addEventListener('click', e => {
+                    this.goForward();
+                })
+            }
+
+            this.navigationInner = document.createElement('div');
+            this.navigationInner.classList.add('navigation-inner');
+            this.navigation.appendChild(this.navigationInner)
+
+            this.navigationInner.appendChild(this.back)
+            this.navigationInner.appendChild(this.forward)
+            resolve();
+        })
+
 
     }
 }

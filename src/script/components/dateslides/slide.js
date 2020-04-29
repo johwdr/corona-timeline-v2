@@ -105,64 +105,14 @@ export default class Slide {
         this.bottomWrapper.classList.add('bottom-wrapper');
         this.container.appendChild(this.bottomWrapper)
 
-        this.buildNavigation()
+
         //this.buildSource();
 
         return this.container;
 
 
     }
-    buildNavigation() {
-        this.navigation = document.createElement('div');
-        this.navigation.classList.add('navigation');
 
-
-
-        this.back = document.createElement('button');
-        this.back.classList.add('back-button');
-        this.back.innerHTML = `
-            <svg version="1.1" id="Lag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 30 35" style="enable-background:new 0 0 30 35;" xml:space="preserve">
-                <g>
-                    <polygon class="arrow-svg" points="30,35 30,0 0,17.5 	"/>
-                </g>
-            </svg>`;
-        if (this.index != 0) {
-            this.back.addEventListener('click', e => {
-                this.navigationTools.goBack();
-            })
-        }
-
-
-
-
-
-        this.forward = document.createElement('button');
-        this.forward.classList.add('forward-button');
-        this.forward.innerHTML = `
-
-            <svg version="1.1" id="Lag_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 30 35" style="enable-background:new 0 0 30 35;" xml:space="preserve">
-                  <g>
-                    <polygon class="arrow-svg" points="0,0 0,35 30,17.5 	"/>
-                </g>
-            </svg>
-            `;
-        if (this.index != (this.slides.length-1)) {
-            this.forward.addEventListener('click', e => {
-                this.navigationTools.goForward();
-            })
-        }
-
-        this.navigationInner = document.createElement('div');
-        this.navigationInner.classList.add('navigation-inner');
-        this.navigation.appendChild(this.navigationInner)
-
-        this.navigationInner.appendChild(this.back)
-        this.navigationInner.appendChild(this.forward)
-
-        this.bottomWrapper.appendChild(this.navigation)
-    }
     buildSource() {
 
 
