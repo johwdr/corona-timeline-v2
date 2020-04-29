@@ -31,6 +31,12 @@ export default class DateSlides {
         this.container.id = 'corona-timeline-content';
         el.appendChild(this.container)
 
+
+        this.credits = document.createElement('div');
+        this.credits.id = 'corona-timeline-credits';
+
+        this.container.appendChild(this.credits)
+
         this.currentSlideIndex = 0;
         this.dataURL = el.dataset.dateSlides;
 
@@ -81,6 +87,7 @@ export default class DateSlides {
                     this.title.innerHTML = this.configData.header;
                     console.log(this.configData)
 
+                    this.credits.innerHTML = this.configData.credits;
 
                 })
 
@@ -162,14 +169,12 @@ export default class DateSlides {
         }
     }
     setActiveSlide(newSlideIndex) {
-        console.trace();
-        console.log('set active slide')
-        console.log(newSlideIndex)
+
         this.slides[this.currentSlideIndex].classList.remove('dateslides-slide-active')
         this.slides[newSlideIndex].classList.add('dateslides-slide-active')
         this.currentSlideIndex = newSlideIndex;
 
-        this.indicator.setCurrentIndex(this.currentSlideIndex)
+        //this.indicator.setCurrentIndex(this.currentSlideIndex)
 
     }
 
@@ -219,11 +224,13 @@ export default class DateSlides {
                         <polygon class="arrow" points="27.95,36.07 30.07,33.95 21.12,25 30.07,16.05 27.95,13.93 16.87,25 	"/>
                     </g>
                 </svg>`;
-            if (this.currentSlideIndex != 0) {
+
                 this.back.addEventListener('click', e => {
+
                     this.goBack();
+
                 })
-            }
+
 
 
 
@@ -243,11 +250,10 @@ export default class DateSlides {
                     </g>
                 </svg>
                 `;
-            if (this.currentSlideIndex != (this.data.length - 1)) {
-                this.forward.addEventListener('click', e => {
-                    this.goForward();
-                })
-            }
+
+            this.forward.addEventListener('click', e => {
+                this.goForward();
+            })
 
             this.navigationInner = document.createElement('div');
             this.navigationInner.classList.add('navigation-inner');

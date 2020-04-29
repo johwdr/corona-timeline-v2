@@ -53,7 +53,7 @@ export default class Slide {
         `;
         numbers += `
             <div class="number-element">
-                <span class="number-label">På intensiv</span>
+                <span class="number-label">Intensiv</span>
                 <span class="number">${this.data.intensivecare || 0}</span>
             </div>
         `;

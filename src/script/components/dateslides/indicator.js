@@ -2,7 +2,7 @@
 
 import './indicator.scss';
 
-const markerWidth = 12;
+const markerWidth = 16;
 
 export default class Indicator {
     constructor(slidesData, callback) {
@@ -59,18 +59,34 @@ export default class Indicator {
 
 
         this.container.addEventListener('mousedown', (e) => {
+            e.preventDefault();
             this.isDown = true;
             this.container.classList.add('active');
+            if (!window['safari']) {
+                this.container.classList.add('no-snap');
+            }
             this.startX = e.pageX - this.container.offsetLeft;
             this.scrollLeft = this.container.scrollLeft;
         });
         this.container.addEventListener('mouseleave', () => {
             this.isDown = false;
             this.container.classList.remove('active');
+            if (window['safari']) {
+                this.safariAdjust();
+            } else {
+                this.container.classList.remove('no-snap');
+            }
+
         });
         this.container.addEventListener('mouseup', () => {
             this.isDown = false;
             this.container.classList.remove('active');
+            if (window['safari']) {
+                this.safariAdjust();
+            } else {
+                this.container.classList.remove('no-snap');
+            }
+            //console.dir(this.container.scrollLeft)
         });
         this.container.addEventListener('mousemove', (e) => {
             if (!this.isDown) return;
@@ -78,7 +94,7 @@ export default class Indicator {
             const x = e.pageX - this.container.offsetLeft;
             const walk = (x - this.startX) * 3; //scroll-fast
             this.container.scrollLeft = this.scrollLeft - walk;
-            console.log(walk);
+            //console.log(walk);
         });
 
 
@@ -139,9 +155,21 @@ export default class Indicator {
 
 
     }
+    safariAdjust() {
+        console.log('safari adjust')
+        const between = (this.container.scrollLeft % (markerWidth + 2));
+        console.log(between)
+        if (between < 10) {
+            this.container.scrollLeft -= between
+        } else {
+            this.container.scrollLeft += (markerWidth + 2) - between
+        }
+    }
     moveIndicator(slide, callback = false) {
         let currentScroll = this.container.scrollLeft;
-        currentScroll += (slide - this.currentActiveSlide) * markerWidth;
+        const xFactor = (slide > this.currentActiveSlide) ? 2 : -2;
+        let move = ((slide - this.currentActiveSlide) * markerWidth + xFactor);
+        currentScroll += move;
         //this.container.scrollLeft = currentScroll;
         this.scrolling = true;
         //this.container.classList.add('no-snap')
@@ -196,8 +224,7 @@ export default class Indicator {
         }
 
     }
-    setCurrentIndex(index) {
-    }
+
     easeInOutQuad(t, b, c, d) {
 
         t /= d / 2;
