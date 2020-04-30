@@ -120,6 +120,8 @@ export default class Indicator {
         this.slides.forEach((slide, index) => {
             const dateArray = slide.date.split('-');
             const month = Number(dateArray[1]);
+            const monthText = this.months[month - 1];
+            const day = Number(dateArray[0]);
             const marker = document.createElement('div');
             marker.classList.add('indicator-marker');
             if (index === this.currentActiveSlide) {
@@ -147,6 +149,18 @@ export default class Indicator {
                 monthLabel.classList.add('indicator-marker-month-label');
                 marker.appendChild(monthLabel);
             }
+
+
+
+            marker.title = `${day}. ${monthText}`;
+            /*
+            const markerLabel = document.createElement('div');
+            markerLabel.classList.add('marker-tooltip')
+            markerLabel.innerHTML = `${day}. ${monthText}`;
+
+            marker.appendChild(markerLabel) */
+
+
 
             this.container.appendChild(marker)
             this.markers.push(marker)

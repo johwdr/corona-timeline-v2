@@ -120,7 +120,28 @@ $indicatorColor: #b1b1b1;
         &.indicator-marker-highlight {
             border-color: #0861ce;
         }
+        /*
+        .marker-tooltip {
+            display: none;
+            position: absolute;
+            top: -25px;
 
+        }
+        &:hover .marker-tooltip {
+            display: block;
+            animation: showtip 1s forwards;
+        }
+        @keyframes showtip{
+            0% {
+                opacity: 0
+            }
+            90% {
+                opacity: 0
+            }
+            100% {
+                opacity: 1
+            }
+        }*/
         &.indicator-marker-active {
 
             //border-color: #ff001e;
