@@ -100,7 +100,7 @@ $indicatorColor: #b1b1b1;
             height: 50px;
         }
         &.indicator-marker-spacer {
-            width: 400px;
+
             border: none;
 
         }
@@ -109,12 +109,12 @@ $indicatorColor: #b1b1b1;
             top: 0;
         }
         &.indicator-marker-highlight {
-            border-color: #aeaeae;
+            border-color: #0861ce;
         }
 
         &.indicator-marker-active {
 
-            //border-color: #FF001E;
+            //border-color: #ff001e;
 
             .indicator-marker-month-label {
                 display: none

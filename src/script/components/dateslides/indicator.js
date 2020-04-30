@@ -24,7 +24,11 @@ export default class Indicator {
 
     }
 
-
+    isSafari() {
+        const uA = navigator.userAgent;
+        const vendor = navigator.vendor;
+        return (/Safari/i.test(uA) && /Apple Computer/.test(vendor) && !/Mobi|Android/i.test(uA));
+    }
 
     build() {
 
@@ -62,7 +66,8 @@ export default class Indicator {
             e.preventDefault();
             this.isDown = true;
             this.container.classList.add('active');
-            if (!window['safari']) {
+            if (!this.isSafari()) {
+                console.log('not safari')
                 this.container.classList.add('no-snap');
             }
             this.startX = e.pageX - this.container.offsetLeft;
@@ -71,9 +76,10 @@ export default class Indicator {
         this.container.addEventListener('mouseleave', () => {
             this.isDown = false;
             this.container.classList.remove('active');
-            if (window['safari']) {
-                this.safariAdjust();
-            } else {
+
+            this.snapAdjust();
+            if(!this.isSafari()) {
+                console.log('not safari')
                 this.container.classList.remove('no-snap');
             }
 
@@ -81,9 +87,9 @@ export default class Indicator {
         this.container.addEventListener('mouseup', () => {
             this.isDown = false;
             this.container.classList.remove('active');
-            if (window['safari']) {
-                this.safariAdjust();
-            } else {
+            this.snapAdjust();
+            if(!this.isSafari()) {
+                console.log('not safari')
                 this.container.classList.remove('no-snap');
             }
             //console.dir(this.container.scrollLeft)
@@ -149,16 +155,21 @@ export default class Indicator {
         const marker = document.createElement('div');
         marker.classList.add('indicator-marker');
         marker.classList.add('indicator-marker-spacer');
+
+        marker.style.width = (window.innerWidth > 700) ? '700px' : (window.innerWidth-40) + 'px' ;
+
+
         this.container.appendChild(marker)
         this.setActiveSlide(0, false)
 
 
 
     }
-    safariAdjust() {
-        console.log('safari adjust')
+    snapAdjust() {
+        console.log('snap adjust')
         const between = (this.container.scrollLeft % (markerWidth + 2));
-        console.log(between)
+        console.log('between: ' + between)
+        console.log('scrollLeft: ' + this.container.scrollLeft)
         if (between < 10) {
             this.container.scrollLeft -= between
         } else {
