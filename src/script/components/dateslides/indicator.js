@@ -229,7 +229,13 @@ export default class Indicator {
         const dateArray = date.split('-');
         const month = this.months[Number(dateArray[1])-1];
         const day = Number(dateArray[0]);
-        this.label.innerHTML = `${day}. ${month}`;
+
+        let highlight = '';
+        if (this.slides[slide].highlight && this.slides[slide].highlight.length > 0) {
+            highlight = '<span class="highlight-label">Nøgledato</span>'
+        }
+
+        this.label.innerHTML = `${day}. ${month} ${highlight}`;
         if (callback) {
             this.callback(slide)
         }

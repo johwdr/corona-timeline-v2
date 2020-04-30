@@ -33,7 +33,16 @@ $indicatorColor: #b1b1b1;
         background: $background;
         text-transform: uppercase;
         font-size: 24px;
-
+        .highlight-label {
+            color: white;
+            background: #0861ce;
+            font-size: 10px;
+            display: inline-block;
+            padding: 3px 5px 4px;
+            position: relative;
+            top: -5px;
+            letter-spacing: 1px;
+        }
         &:after {
             content: "";
             position: absolute;
@@ -127,6 +136,7 @@ $indicatorColor: #b1b1b1;
             color: #FF001E;
             background: #f2f2f2;
             z-index: 10;
+
         }
         .indicator-marker-month-label, .indicator-marker-label {
             position: absolute;
@@ -137,5 +147,8 @@ $indicatorColor: #b1b1b1;
         &.indicator-marker-last {
             // margin-right: 50vw;
         }
+
+
     }
+
 }

@@ -72,7 +72,7 @@ export default class DateSlides {
                     this.setActiveSlide(0)
                 }
 
-                this.setupEvents();
+
 
 
             });
@@ -95,18 +95,7 @@ export default class DateSlides {
 
 
     }
-    setupEvents() {
 
-        document.addEventListener('keyup', (event) => {
-            if (event.which === 37) {
-                this.goBack()
-            }
-            if (event.which === 39) {
-                this.goForward()
-            }
-        })
-
-    }
 
     fetchData(url) {
         return fetch(url)
